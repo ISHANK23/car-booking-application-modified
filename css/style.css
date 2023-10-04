@@ -1,0 +1,453 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Source+Code+Pro:wght@200;300;400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    scroll-behavior: smooth;
+}
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: #F8F9FA;
+}
+
+/*NAVBAR CSS*/
+.navbar{
+	position: sticky;
+	top: 0;
+    z-index: 100;
+    background-color: #fff;
+    color: black;
+}
+.navbar .navbar-brand span.text2{
+   color: #01d28e;
+}
+.navbar .navbar-brand span{
+    font-weight: bold;
+    text-transform: capitalize;
+    color: black;
+}
+
+/*SLIDER CSS*/
+.slider .carousel .carousel-inner .carousel-item img {
+    width: 100%;
+    height: 550px;
+    object-fit: cover;
+}
+
+.slider .carousel .carousel-inner .carousel-item .carousel-caption {
+    margin-bottom: 10rem;
+}
+
+/*GUTTER CSS*/
+.no-gutter > [class*='col']{
+    flex-grow: 0;
+}
+
+
+/*SHOW CARS CSS*/
+.cars{
+margin-top: 5rem;
+margin-left: 3rem;
+}
+
+
+.cars .showCars{
+    margin-top: 2rem;
+    margin-left: 0.8rem;
+}
+
+.cars .showCars .btn{
+    width: 7.5rem;
+   margin-right: 0.5rem;
+}
+
+.cars p{
+    font-weight: 600;
+    color: #1089ff;
+    text-align: center;
+    text-transform: capitalize;
+}
+.cars .title h1{
+    text-align: center;
+}
+
+/*Welcome Section CSS*/
+.welcome{
+    margin-top: 10rem;
+}
+.welcome .row{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+}
+
+.welcome .row .left-side{
+    height: 532px;
+    background-color: #FFFFFF;
+    flex: 1 1 30rem;
+}
+
+.welcome .row .right-side{
+    color: white;
+    background-color: #01D28E;
+    flex: 1 1 50rem;
+}
+
+.welcome .row .right-side p,h1{
+    margin-top: 2rem;
+    margin-left: 5rem;
+}
+
+.welcome .row .top-img{
+    margin-top: 96px;
+    margin-left: 120px;
+    position: absolute;
+}
+
+.welcome .row .top-img img{
+    height: 436px;
+    width: 459px;
+}
+
+/*Services CSS*/
+.services{
+    margin-top: 10rem;
+    
+}
+.services .row{
+    text-align: center;
+}
+
+.services 
+.row .box1 .icon,
+.row .box2 .icon,
+.row .box3 .icon,
+.row .box4 .icon{
+    position: absolute;
+    z-index: -1;
+    margin-left: 5rem;
+    margin-top: -2rem;
+    border-radius: 50%;
+    width: 110px;
+    height: 110px;
+    background-color: #1089ff;
+}
+
+.services .row .box1,.box2,.box3,.box4{
+    padding: 2rem;
+}
+
+.services .row p{
+    margin-top: 1rem;
+}
+.services #txt{
+    font-weight: 600;
+    color: #1089ff;
+    text-align: center;
+    text-transform: capitalize;
+}
+.services .title h1{
+    margin-bottom: 5rem;
+    text-align: center;
+}
+.services .row h5{
+    margin-top: 2rem;
+}
+.services .row{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+}
+
+.services .row .box1{
+    flex: 1 1 20rem;
+    margin: 0;
+}
+
+.services .row .box2{
+    flex: 1 1 20rem;
+    margin: 0;
+}
+
+.services .row .box3{
+    flex: 1 1 20rem;
+    margin: 0;
+}
+
+.services .row .box4{
+    flex: 1 1 20rem;
+    margin: 0;
+}
+
+.services .row img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50px;
+    height: 50px;
+}
+
+/*CAR Details css*/
+.features{
+    margin-top: 10rem; 
+}
+
+.features .row{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+}
+
+
+.features .row h5{
+    margin-left: -2rem;
+    font-size: 14px;
+}
+
+.features .row p{
+    margin-top: 1rem;
+}
+
+.features #txt{
+    font-weight: 600;
+    color: #1089ff;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.features .title h1{
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.features .row .box5,.row .box6,.row .box7,.row .box8,.row .box9{
+    display: flex;
+    flex-direction: row;
+}
+
+.features .row .box5{
+    flex: 1 1 10rem;
+    margin: 0rem;
+}
+
+.features .row .box6{
+    flex: 1 1 10rem;
+    margin: 0rem;
+}
+
+.features .row .box7{
+    flex: 1 1 10rem;
+    margin: 0rem;
+}
+
+.features .row .box8{
+    flex: 1 1 10rem;
+    margin: 0rem;
+}
+
+.features .row .box9{
+    flex: 1 1 10rem;
+    margin: 0rem;
+}
+
+.features .row img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25px;
+    height: 25px;
+}
+
+/*FOOTER CSS*/
+.footer {
+    background: black;
+    color: white;
+  }
+  .footer .links ul {
+    list-style-type: none;
+  }
+  .footer .links li a {
+    color: white;
+    transition: color 0.2s;
+  }
+  .footer .links li a:hover {
+    text-decoration: none;
+    color: #4180cb;
+  }
+  .footer .about-company i {
+    font-size: 25px;
+  }
+  .footer .about-company a {
+    color: white;
+    transition: color 0.2s;
+  }
+  .footer .about-company a:hover {
+    color: #4180cb;
+  }
+  .footer .location i {
+    font-size: 18px;
+  }
+  .footer .copyright p {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+.footer .about-company span{
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-transform: capitalize;
+    color: white;
+}
+.footer .about-company span.text2{
+    color: #01d28e;
+}
+
+
+/*Hero Section CSS*/
+
+
+.hero .jumbotron{
+    background-size: cover;
+    height: 450px;
+}
+
+.hero .jumbotron h1{
+    font-size: 44px;
+    color: rgb(255, 255, 255);
+    margin-top: 18rem;
+}
+
+/*Carousel*/
+.container {
+    margin-top: 100px;
+    margin-bottom: 100px
+}
+
+.carousel-inner img {
+    width: 100%;
+    height: 100%
+}
+
+#custCarousel .carousel-indicators {
+    position: static;
+    margin-top: 20px
+}
+
+#custCarousel .carousel-indicators>li {
+    width: 100px
+}
+
+#custCarousel .carousel-indicators li img {
+    display: block;
+    opacity: 0.5
+}
+
+#custCarousel .carousel-indicators li.active img {
+    opacity: 1
+}
+
+#custCarousel .carousel-indicators li:hover img {
+    opacity: 0.75
+}
+
+.carousel-item img {
+    width: 80%
+}
+
+/*Register form CSS*/
+.register .container .error{
+    color: red;
+}
+
+/*Details CSS*/
+.details .container .row{
+   margin-top: 5rem;
+   margin-left: 4rem;
+}
+
+.details .container i{
+    color:#1089ff;
+}
+
+/*Feature Table CSS*/
+.features tbody tr td .fa-check{
+    color: #01d28e;
+}
+
+.features tbody tr td .fa-times{
+    color: red;
+}
+
+/*My Account*/
+.my-account img.card-img-top{
+    width: 80px;
+   
+}
+
+/*Services*/    
+.servicepg h2{
+    color: #01d28e;
+}
+
+.servicepg .container .card{
+    padding: 2rem;
+}
+
+
+/*Media Queries*/
+    
+    
+    @media screen and (min-width: 1024px) {
+        
+    }
+    
+   
+    @media screen and (min-device-width: 768px)
+    and (max-device-width: 1024px) {
+        .welcome .columns .box.left-side{
+            width: 50%;
+        }
+        .welcome .columns .box.right-side{
+            width: 50%;
+        }
+    }
+    
+    
+    @media screen and (max-device-width: 480px)
+    and (orientation: portrait) {
+        
+
+    }
+    
+    
+    @media screen and (max-device-width: 640px)
+    and (orientation: landscape) {
+   
+    }
+    
+  
+    @media screen and (max-device-width: 640px) {
+    
+    }
+    
+    
+    @media screen and (min-device-width: 320px)
+    and (-webkit-min-device-pixel-ratio: 2) {
+    
+    }
+    
+    
+    @media (device-height: 568px) and (device-width: 320px)
+    and (-webkit-min-device-pixel-ratio: 2) {
+    
+    }
+    
+    
+    @media (min-device-height: 667px) and (min-device-width: 375px)
+    and (-webkit-min-device-pixel-ratio: 3) {
+    
+    }
+    
+
+    
