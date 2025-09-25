@@ -1,66 +1,242 @@
 %PDF-1.4
+%
 1 0 obj
 << /Type /Catalog /Pages 2 0 R >>
 endobj
 2 0 obj
-<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+<< /Type /Pages /Count 3 /Kids [4 0 R 6 0 R 8 0 R] >>
 endobj
 3 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
-endobj
-4 0 obj
-<< /Length 3081 >>
-stream
-BT /F1 12 Tf 72 760 Td (SE4030 - Secure Software Development Assignment Report) Tj ET
-BT /F1 12 Tf 72 742 Td () Tj ET
-BT /F1 12 Tf 72 724 Td (Application: Car Booking Web Portal) Tj ET
-BT /F1 12 Tf 72 706 Td () Tj ET
-BT /F1 12 Tf 72 688 Td (Identified Vulnerabilities and Fixes:) Tj ET
-BT /F1 12 Tf 72 670 Td (1. Database credentials were hard-coded with the MySQL root user. The connection layer now) Tj ET
-BT /F1 12 Tf 72 652 Td (   loads credentials from environment variables, enables strict mysqli error handling and) Tj ET
-BT /F1 12 Tf 72 634 Td (   terminates safely on failure.) Tj ET
-BT /F1 12 Tf 72 616 Td (2. Multiple SQL injection risks existed in login, registration and booking flows. All inputs) Tj ET
-BT /F1 12 Tf 72 598 Td (   are now processed through parameterised prepared statements.) Tj ET
-BT /F1 12 Tf 72 580 Td (3. Passwords were stored with unsalted MD5 hashes. The system now uses PHP password_hash\(\)) Tj ET
-BT /F1 12 Tf 72 562 Td (   and upgrades any legacy hashes transparently on the next successful login.) Tj ET
-BT /F1 12 Tf 72 544 Td (4. Public forms were missing CSRF protection. Each critical form now embeds a session-bound) Tj ET
-BT /F1 12 Tf 72 526 Td (   anti-CSRF token that is verified on submission.) Tj ET
-BT /F1 12 Tf 72 508 Td (5. Sessions were vulnerable to fixation after authentication. Successful logins regenerate) Tj ET
-BT /F1 12 Tf 72 490 Td (   the session identifier and clear stale session attributes on logout.) Tj ET
-BT /F1 12 Tf 72 472 Td (6. User supplied values were rendered without escaping, enabling stored XSS via vehicle data) Tj ET
-BT /F1 12 Tf 72 454 Td (   and booking records. All dynamic output paths now escape HTML entities.) Tj ET
-BT /F1 12 Tf 72 436 Td (7. Registration accepted weak data and duplicate emails. Server-side validation now enforces) Tj ET
-BT /F1 12 Tf 72 418 Td (   strong passwords, normalised phone numbers and rejects email collisions, including OAuth) Tj ET
-BT /F1 12 Tf 72 400 Td (   linked accounts.) Tj ET
-BT /F1 12 Tf 72 382 Td () Tj ET
-BT /F1 12 Tf 72 364 Td (OAuth 2.0 Integration:) Tj ET
-BT /F1 12 Tf 72 346 Td (- Implemented Google Authorization Code login with explicit state tracking, secure token) Tj ET
-BT /F1 12 Tf 72 328 Td (  exchange and userinfo retrieval. Accounts are created or linked seamlessly and stored with) Tj ET
-BT /F1 12 Tf 72 310 Td (  provider metadata for future logins.) Tj ET
-BT /F1 12 Tf 72 292 Td () Tj ET
-BT /F1 12 Tf 72 274 Td (Unresolved Items:) Tj ET
-BT /F1 12 Tf 72 256 Td (- Rate limiting and multi-factor authentication were noted as future enhancements beyond the) Tj ET
-BT /F1 12 Tf 72 238 Td (  current scope.) Tj ET
-BT /F1 12 Tf 72 220 Td () Tj ET
-BT /F1 12 Tf 72 202 Td (Preventive Best Practices:) Tj ET
-BT /F1 12 Tf 72 184 Td (- Adopt secure coding guidelines, peer reviews and automated security testing to detect) Tj ET
-BT /F1 12 Tf 72 166 Td (  issues early. Centralise credential management, require prepared statements, enforce) Tj ET
-BT /F1 12 Tf 72 148 Td (  password policies and include security checks in the CI pipeline.) Tj ET
-endstream
-endobj
-5 0 obj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
 endobj
+5 0 obj
+<< /Length 2741 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 742 Tm
+(SE4030 – Secure Software Development Assignment Report) Tj
+0 -14 Td
+0 -14 Td
+(Car Booking Web Application Hardening) Tj
+0 -14 Td
+0 -14 Td
+(Team Members: <Member Name 1> \(<Index Number>\), <Member Name 2> \(<Index Number>\), <Member) Tj
+0 -14 Td
+(Name 3> \(<Index Number>\), <Member Name 4> \(<Index Number>\)) Tj
+0 -14 Td
+0 -14 Td
+(Submission Date: <insert date>) Tj
+0 -14 Td
+0 -14 Td
+0 -14 Td
+(1. Overview) Tj
+0 -14 Td
+0 -14 Td
+(We assessed the legacy PHP car booking portal to locate high-impact security weaknesses,) Tj
+0 -14 Td
+(implemented remediations, and added Google OAuth 2.0 based authentication. The hardened) Tj
+0 -14 Td
+(codebase is now stored in the secured repository referenced in the README file.) Tj
+0 -14 Td
+0 -14 Td
+0 -14 Td
+(2. Assessment Methodology) Tj
+0 -14 Td
+0 -14 Td
+(- Manual secure code review of PHP pages and includes with a focus on authentication,) Tj
+0 -14 Td
+(booking flows, and administrative tooling.) Tj
+0 -14 Td
+0 -14 Td
+(- Static analysis using built-in PHP linting \(php -l\) across the modified scripts to) Tj
+0 -14 Td
+(prevent syntax and parse errors.) Tj
+0 -14 Td
+0 -14 Td
+(- Targeted functional testing of registration, login, booking, and logout scenarios over) Tj
+0 -14 Td
+(both local accounts and Google sign-in.) Tj
+0 -14 Td
+0 -14 Td
+0 -14 Td
+(3. Vulnerabilities Identified and Remediated) Tj
+0 -14 Td
+0 -14 Td
+(V1 – Weak Session Cookie Security: The original application relied on default PHP session) Tj
+0 -14 Td
+(handling without HttpOnly, Secure, or SameSite flags, allowing theft or reuse of session) Tj
+0 -14 Td
+(identifiers. We centralised session bootstrap logic in inc/security.php to set hardened) Tj
+0 -14 Td
+(cookie parameters and regenerate IDs after login.) Tj
+0 -14 Td
+0 -14 Td
+(V2 – Absence of CSRF Protection: Login, registration, and booking forms lacked anti-CSRF) Tj
+0 -14 Td
+(checks, enabling forged requests. Each form now embeds a per-session token generated by) Tj
+0 -14 Td
+(generateCsrfToken\(\) and validates it server-side before mutating state.) Tj
+0 -14 Td
+0 -14 Td
+(V3 – SQL Injection in Authentication Flows: Raw string interpolation was used when looking) Tj
+0 -14 Td
+(up users, making login bypass trivial. All database access has been refactored to use) Tj
+0 -14 Td
+(parameterised mysqli prepared statements across admin/index.php, login.php, register.php,) Tj
+0 -14 Td
+(and carDetails.php.) Tj
+0 -14 Td
+0 -14 Td
+(V4 – Insecure Password Storage: User and admin passwords were stored as legacy MD5 hashes.) Tj
+0 -14 Td
+(Registration now stores passwords using password_hash\(\), and the login flows transparently) Tj
+0 -14 Td
+(upgrade any remaining MD5 hashes to bcrypt on successful authentication.) Tj
+0 -14 Td
+ET
+endstream
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
+endobj
+7 0 obj
+<< /Length 2822 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 742 Tm
+(V5 – Stored and Reflected XSS Exposure: User-provided values such as car booking notes and) Tj
+0 -14 Td
+(vehicle metadata were output without escaping, enabling script injection. The new escape\(\)) Tj
+0 -14 Td
+(helper encodes all dynamic output in templates, and booking messages are stripped of HTML) Tj
+0 -14 Td
+(and length-limited before storage.) Tj
+0 -14 Td
+0 -14 Td
+(V6 – Booking Input Validation Failures: Date fields accepted arbitrary strings, which) Tj
+0 -14 Td
+(could corrupt records and bypass availability checks. Server-side validation now) Tj
+0 -14 Td
+(normalises dates, rejects invalid ranges, and caps free-form messages to 500 characters) Tj
+0 -14 Td
+(before executing the INSERT statement.) Tj
+0 -14 Td
+0 -14 Td
+(V7 – Hardcoded Database Credentials and Silent Failures: Connection scripts contained) Tj
+0 -14 Td
+(plaintext credentials with suppressed errors, risking credential leakage and unstable) Tj
+0 -14 Td
+(deployments. The connection bootstrap now sources credentials from environment variables,) Tj
+0 -14 Td
+(enables mysqli exceptions, and fails fast with a sanitised error response.) Tj
+0 -14 Td
+0 -14 Td
+0 -14 Td
+(4. OAuth 2.0 Integration) Tj
+0 -14 Td
+0 -14 Td
+(We introduced a Google OAuth 2.0 login path that complements local accounts. oauth/google-) Tj
+0 -14 Td
+(login.php initiates the authorisation request, while oauth/google-callback.php validates) Tj
+0 -14 Td
+(the returned state, exchanges the code for tokens, fetches the OpenID Connect userinfo) Tj
+0 -14 Td
+(payload, and either links or provisions the user record inside the existing users table.) Tj
+0 -14 Td
+(OAuth-sourced accounts store provider metadata and bypass password storage, and session) Tj
+0 -14 Td
+(regeneration occurs before redirecting the user to their dashboard.) Tj
+0 -14 Td
+0 -14 Td
+0 -14 Td
+(5. Testing and Validation) Tj
+0 -14 Td
+0 -14 Td
+(- php -l executed against all touched PHP scripts to ensure they parse correctly after) Tj
+0 -14 Td
+(each change.) Tj
+0 -14 Td
+0 -14 Td
+(- Manual regression testing covering: new registrations, legacy MD5 account login upgrade,) Tj
+0 -14 Td
+(failed login handling, booking creation with valid and invalid dates, and Google sign-in) Tj
+0 -14 Td
+(happy path.) Tj
+0 -14 Td
+0 -14 Td
+0 -14 Td
+(6. Remaining Known Risks) Tj
+0 -14 Td
+0 -14 Td
+(- Rate limiting and account lockout were not implemented; brute-force resistance should be) Tj
+0 -14 Td
+(added in a future iteration.) Tj
+0 -14 Td
+0 -14 Td
+(- Transport security \(HTTPS enforcement and HSTS\) must be configured at the web server or) Tj
+0 -14 Td
+(load balancer level when deploying.) Tj
+0 -14 Td
+0 -14 Td
+0 -14 Td
+(7. Secure Development Best Practices) Tj
+0 -14 Td
+0 -14 Td
+(- Adopt peer code reviews focused on security-sensitive areas before merging changes.) Tj
+0 -14 Td
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 7 0 R >>
+endobj
+9 0 obj
+<< /Length 716 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 742 Tm
+(- Maintain automated dependency and vulnerability scanning as part of the CI pipeline.) Tj
+0 -14 Td
+0 -14 Td
+(- Document secure coding patterns—prepared statements, output encoding, and CSRF) Tj
+0 -14 Td
+(defences—for future contributors.) Tj
+0 -14 Td
+0 -14 Td
+0 -14 Td
+(Appendix – Environment Configuration) Tj
+0 -14 Td
+0 -14 Td
+(Set the following environment variables before running the application in production:) Tj
+0 -14 Td
+(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, and) Tj
+0 -14 Td
+(GOOGLE_REDIRECT_URI. Default development fallbacks exist for the database values, but) Tj
+0 -14 Td
+(OAuth credentials must always be provided.) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 9 0 R >>
+endobj
 xref
-0 6
+0 10
 0000000000 65535 f 
-0000000009 00000 n 
-0000000058 00000 n 
-0000000115 00000 n 
-0000000241 00000 n 
-0000003374 00000 n 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000133 00000 n 
+0000002996 00000 n 
+0000000203 00000 n 
+0000005996 00000 n 
+0000003122 00000 n 
+0000006889 00000 n 
+0000006122 00000 n 
 trailer
-<< /Size 6 /Root 1 0 R >>
+<< /Size 10 /Root 1 0 R >>
 startxref
-3444
+7015
 %%EOF
