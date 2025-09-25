@@ -3,6 +3,9 @@
     require('inc/connection.inc.php');
     unset($_SESSION['username']);
     unset($_SESSION['id']);
+    unset($_SESSION['email']);
+    unset($_SESSION['user_display_name']);
+    unset($_SESSION['oauth_provider']);
     session_destroy();
     echo '<script>swal({
         title: "You are loggin out!",

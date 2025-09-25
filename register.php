@@ -1,40 +1,77 @@
 <?php
-    require('inc/header.inc.php');
-    require('inc/connection.inc.php');
+require('inc/header.inc.php');
+require_once('inc/connection.inc.php');
 
-if(isset($_POST['submit']))
-{
-$username=$_POST['username'];
-$email=$_POST['email']; 
-$phone=$_POST['phone'];
-$password=md5($_POST['password']); 
-$sql="INSERT INTO users(username,email,phone,password) VALUES('$username','$email','$phone','$password')";
-$chekMail="SELECT email FROM users WHERE email='$email'";
-$res=mysqli_query($con,$chekMail);
-if($row=mysqli_num_rows($res)>0){
-  echo "<script>
-  Swal.fire({
-    icon: 'error',
-    title: 'Oops...',
-    text: 'Email already registered!',
-  })
-    </script>";
-}else{
-if(mysqli_query($con,$sql))
-{
-header('Location:Login.php?status=success');
-  if( $_GET['status'] == 'success'):
-    echo 'feedback message goes here';
-endif;
-}
-else 
-{
-echo "<script>alert('Something went wrong. Please try again');</script>";
-}
-}
-//header('Location:register.php');
+$errors = [];
+if (isset($_POST['submit'])) {
+    $submittedToken = $_POST['csrf_token'] ?? null;
+    if (!validateCsrfToken($submittedToken)) {
+        $errors[] = 'Invalid session, please refresh and try again.';
+    }
+
+    $username = trim($_POST['username'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $phone = preg_replace('/[^0-9+]/', '', $_POST['phone'] ?? '');
+    $password = $_POST['password'] ?? '';
+    $password2 = $_POST['password2'] ?? '';
+
+    if ($username === '') {
+        $errors[] = 'Please enter your name.';
+    }
+
+    if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = 'Please enter a valid email address.';
+    }
+
+    if ($phone === '') {
+        $errors[] = 'Please enter your phone number.';
+    }
+
+    if (strlen($password) < 8 || !preg_match('/[A-Za-z]/', $password) || !preg_match('/[0-9]/', $password)) {
+        $errors[] = 'Password must be at least 8 characters and contain letters and numbers.';
+    }
+
+    if (!hash_equals($password, $password2)) {
+        $errors[] = "Passwords don't match.";
+    }
+
+    if (!$errors) {
+        $checkStmt = $con->prepare('SELECT id, oauth_provider FROM users WHERE email = ? LIMIT 1');
+        $checkStmt->bind_param('s', $email);
+        $checkStmt->execute();
+        $existingUser = $checkStmt->get_result()->fetch_assoc();
+
+        if ($existingUser) {
+            if (!empty($existingUser['oauth_provider'])) {
+                $errors[] = 'An account already exists via ' . escape($existingUser['oauth_provider']) . '. Please sign in using that method.';
+            } else {
+                $errors[] = 'Email already registered!';
+            }
+        } else {
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+            $stmt = $con->prepare('INSERT INTO users(username, email, phone, password) VALUES(?, ?, ?, ?)');
+            $stmt->bind_param('ssss', $username, $email, $phone, $hash);
+            $stmt->execute();
+
+            echo '<script>swal({
+                title: "Registration successful!",
+                text: "Redirecting in 2 seconds.",
+                type: "success",
+                timer: 2000,
+                showConfirmButton: false
+              }, function(){
+                    window.location.href = "login.php";
+              });</script>';
+        }
+    }
 }
 
+if ($errors) {
+    $message = escape(implode('\n', $errors));
+    echo "<script>Swal.fire({icon: 'error', title: 'Oops...', text: '{$message}'});</script>";
+}
+
+$csrfToken = generateCsrfToken();
 ?>
 
 <script>
@@ -43,51 +80,7 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
 }
 function validate()
 {
- var error="";
- var name = document.getElementById( "username" );
- if( name.value == "" )
- {
-  error = " Please Enter Your Name. ";
-  document.getElementById( "error" ).innerHTML = error;
-  return false;
- }
-
- var email = document.getElementById( "email" );
- if( email.value == "" || email.value.indexOf( "@" ) == -1 )
- {
-  error = " Please Enter Valid Email Address. ";
-  document.getElementById( "error" ).innerHTML = error;
-  return false;
- }
-
- var phone = document.getElementById( "phone" );
- if( phone.value == "" )
- {
-  error = " Please Enter your phone number ";
-  document.getElementById( "error" ).innerHTML = error;
-  return false;
- }
-
- var password = document.getElementById( "password" );
- if( password.value == "")
- {
-  error = " Password Must Be More Than Or Equal To 8 Digits. ";
-  document.getElementById( "error" ).innerHTML = error;
-  return false;
- }
-
- var password2 = document.getElementById( "password2" );
- if(password.value != password2.value){
-  error = " Password doesn't match ";
-  document.getElementById( "error" ).innerHTML = error;
-  return false;
- }
-
- else
- {
   return true;
-  alert('Registration successfull. Now you can login');
- }
 }
 
 function resetForm(){
@@ -98,37 +91,33 @@ document.getElementById("form").reset();
 <!--Register form-->
 <section class="register">
 <div class="container">
-<form id="form" method="POST" onsubmit="return validate();">
+<form id="form" method="POST">
   <div class="form-group col-lg-6">
-    <label for="exampleFormControlInput1">Name</label>
-    <input type="text" class="form-control" name="username" id="username" placeholder="Enter your name">
-  
+    <label for="username">Name</label>
+    <input type="text" class="form-control" name="username" id="username" placeholder="Enter your name" required>
   </div>
 
   <div class="form-group col-lg-6">
-    <label for="exampleFormControlInput1">Email address</label>
-    <input type="text" class="form-control" name="email"  id="email" placeholder="Enter your email">
-    
+    <label for="email">Email address</label>
+    <input type="email" class="form-control" name="email"  id="email" placeholder="Enter your email" required>
   </div>
 
   <div class="form-group col-lg-6">
-    <label for="exampleFormControlInput1">Phone</label>
-    <input type="text" class="form-control" name="phone"  id="phone" placeholder="Enter your phone number">
-   
+    <label for="phone">Phone</label>
+    <input type="text" class="form-control" name="phone"  id="phone" placeholder="Enter your phone number" required>
   </div>
 
   <div class="form-group col-lg-6">
-    <label for="exampleFormControlInput1">Password</label>
-    <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password">
-   
+    <label for="password">Password</label>
+    <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" autocomplete="new-password" required>
   </div>
 
   <div class="form-group col-lg-6">
-    <label for="exampleFormControlInput1">Confirm-password</label>
-    <input type="password" class="form-control" name="password2" id="password2" placeholder="Re-Enter your password">
-    
+    <label for="password2">Confirm-password</label>
+    <input type="password" class="form-control" name="password2" id="password2" placeholder="Re-Enter your password" autocomplete="new-password" required>
   </div>
 
+  <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
 
   <div class="form-group col-lg-6">
     <button type="submit" name="submit"  class="btn btn-success">Register</button>
