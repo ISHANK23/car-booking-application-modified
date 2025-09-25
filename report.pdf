@@ -1,0 +1,66 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3081 >>
+stream
+BT /F1 12 Tf 72 760 Td (SE4030 - Secure Software Development Assignment Report) Tj ET
+BT /F1 12 Tf 72 742 Td () Tj ET
+BT /F1 12 Tf 72 724 Td (Application: Car Booking Web Portal) Tj ET
+BT /F1 12 Tf 72 706 Td () Tj ET
+BT /F1 12 Tf 72 688 Td (Identified Vulnerabilities and Fixes:) Tj ET
+BT /F1 12 Tf 72 670 Td (1. Database credentials were hard-coded with the MySQL root user. The connection layer now) Tj ET
+BT /F1 12 Tf 72 652 Td (   loads credentials from environment variables, enables strict mysqli error handling and) Tj ET
+BT /F1 12 Tf 72 634 Td (   terminates safely on failure.) Tj ET
+BT /F1 12 Tf 72 616 Td (2. Multiple SQL injection risks existed in login, registration and booking flows. All inputs) Tj ET
+BT /F1 12 Tf 72 598 Td (   are now processed through parameterised prepared statements.) Tj ET
+BT /F1 12 Tf 72 580 Td (3. Passwords were stored with unsalted MD5 hashes. The system now uses PHP password_hash\(\)) Tj ET
+BT /F1 12 Tf 72 562 Td (   and upgrades any legacy hashes transparently on the next successful login.) Tj ET
+BT /F1 12 Tf 72 544 Td (4. Public forms were missing CSRF protection. Each critical form now embeds a session-bound) Tj ET
+BT /F1 12 Tf 72 526 Td (   anti-CSRF token that is verified on submission.) Tj ET
+BT /F1 12 Tf 72 508 Td (5. Sessions were vulnerable to fixation after authentication. Successful logins regenerate) Tj ET
+BT /F1 12 Tf 72 490 Td (   the session identifier and clear stale session attributes on logout.) Tj ET
+BT /F1 12 Tf 72 472 Td (6. User supplied values were rendered without escaping, enabling stored XSS via vehicle data) Tj ET
+BT /F1 12 Tf 72 454 Td (   and booking records. All dynamic output paths now escape HTML entities.) Tj ET
+BT /F1 12 Tf 72 436 Td (7. Registration accepted weak data and duplicate emails. Server-side validation now enforces) Tj ET
+BT /F1 12 Tf 72 418 Td (   strong passwords, normalised phone numbers and rejects email collisions, including OAuth) Tj ET
+BT /F1 12 Tf 72 400 Td (   linked accounts.) Tj ET
+BT /F1 12 Tf 72 382 Td () Tj ET
+BT /F1 12 Tf 72 364 Td (OAuth 2.0 Integration:) Tj ET
+BT /F1 12 Tf 72 346 Td (- Implemented Google Authorization Code login with explicit state tracking, secure token) Tj ET
+BT /F1 12 Tf 72 328 Td (  exchange and userinfo retrieval. Accounts are created or linked seamlessly and stored with) Tj ET
+BT /F1 12 Tf 72 310 Td (  provider metadata for future logins.) Tj ET
+BT /F1 12 Tf 72 292 Td () Tj ET
+BT /F1 12 Tf 72 274 Td (Unresolved Items:) Tj ET
+BT /F1 12 Tf 72 256 Td (- Rate limiting and multi-factor authentication were noted as future enhancements beyond the) Tj ET
+BT /F1 12 Tf 72 238 Td (  current scope.) Tj ET
+BT /F1 12 Tf 72 220 Td () Tj ET
+BT /F1 12 Tf 72 202 Td (Preventive Best Practices:) Tj ET
+BT /F1 12 Tf 72 184 Td (- Adopt secure coding guidelines, peer reviews and automated security testing to detect) Tj ET
+BT /F1 12 Tf 72 166 Td (  issues early. Centralise credential management, require prepared statements, enforce) Tj ET
+BT /F1 12 Tf 72 148 Td (  password policies and include security checks in the CI pipeline.) Tj ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000003374 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+3444
+%%EOF

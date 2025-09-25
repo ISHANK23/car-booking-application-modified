@@ -1,8 +1,8 @@
 <?php
-   require('inc/header.inc.php');
-   require('inc/connection.inc.php');
+require('inc/header.inc.php');
+require_once('inc/connection.inc.php');
 
-   if(!isset($_SESSION['username'])){
+if (!isset($_SESSION['username'])) {
     echo '<script>swal({
         title: "Please login to the account!",
         text: "Redirecting in 2 seconds.",
@@ -12,7 +12,20 @@
       }, function(){
             window.location.href = "login.php";
       });</script>';
-   }
+    require('inc/footer.inc.php');
+    exit;
+}
+
+$userEmail = $_SESSION['username'];
+$bookings = [];
+
+$stmt = $con->prepare('SELECT cars.VehiclesTitle, cars.Vimage1, carbooking.VehicleId, carbooking.FromDate, carbooking.ToDate, carbooking.Status FROM cars JOIN carbooking ON cars.id = carbooking.VehicleId WHERE carbooking.userEmail = ? ORDER BY carbooking.FromDate DESC');
+$stmt->bind_param('s', $userEmail);
+$stmt->execute();
+$result = $stmt->get_result();
+while ($row = $result->fetch_assoc()) {
+    $bookings[] = $row;
+}
 ?>
 
 <section class="my-account">
@@ -38,38 +51,31 @@
     </tr>
   </thead>
   <tbody>
-    <?php
-    $userEmail=$_SESSION['username'];
-      $sql="SELECT  cars.VehiclesTitle,cars.Vimage1,carbooking.VehicleId,carbooking.FromDate,carbooking.ToDate,carbooking.Status FROM cars,carbooking WHERE cars.id=carbooking.VehicleId AND userEmail='$userEmail'";
-      $res=mysqli_query($con,$sql);
-
-      while($row=mysqli_fetch_assoc($res)){
-    ?>
+    <?php foreach ($bookings as $row): ?>
     <tr>
-      <td><?php echo $row['VehiclesTitle']?></td>
-      <td><img class="card-img-top" src="admin/img/vehicleimages/<?php echo $row['Vimage1'];?>" alt="" srcset=""></td>
-      <td><?php echo $row['FromDate']?></td>
-      <td><?php echo $row['ToDate']?></td>
-      <td><?php 
-      if($row['Status']==0){
-        echo "<p class='text-danger'>Pending</p>";
-      }else{
-        echo "<p class='text-success'>Confirm</p>";
-      }?>
+      <td><?php echo escape($row['VehiclesTitle']); ?></td>
+      <td><img class="card-img-top" src="admin/img/vehicleimages/<?php echo escape($row['Vimage1']); ?>" alt="Vehicle image"></td>
+      <td><?php echo escape($row['FromDate']); ?></td>
+      <td><?php echo escape($row['ToDate']); ?></td>
+      <td>
+        <?php if ((int) $row['Status'] === 0): ?>
+          <p class='text-danger'>Pending</p>
+        <?php else: ?>
+          <p class='text-success'>Confirm</p>
+        <?php endif; ?>
       </td>
     </tr>
-    <?php }?>
+    <?php endforeach; ?>
   </tbody>
 </table>
   </div>
 </div>
-    
+
     </div>
 </section>
 
 
 
-
 <?php
-   require('inc/footer.inc.php');
+    require('inc/footer.inc.php');
 ?>

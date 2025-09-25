@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `admin` (
   `id` int(11) NOT NULL,
   `UserName` varchar(100) NOT NULL,
-  `Password` varchar(100) NOT NULL,
+  `Password` varchar(255) NOT NULL,
   `updationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -39,7 +39,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `UserName`, `Password`, `updationDate`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', '2020-03-31 07:55:07');
+(1, 'admin', '$2y$12$VXrsPWIns3ujy4GEnLbgTeQ5Vu0flvD1vyARqjwDp1rI2iCmKwQ5K', '2020-03-31 07:55:07');
 
 -- --------------------------------------------------------
 
@@ -159,27 +159,19 @@ CREATE TABLE `users` (
   `id` int(10) NOT NULL,
   `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `phone` int(11) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `phone` varchar(20) DEFAULT '',
+  `password` varchar(255) DEFAULT NULL,
+  `oauth_provider` varchar(32) DEFAULT NULL,
+  `oauth_subject` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `phone`, `password`) VALUES
-(42, 'kusaledu@gmail.com', 'kusaledu@gmail.com', 0, '35414d649cec4cba60f6b0ee6e94450b'),
-(43, 'kusaledu@gmail.com', '0773318779', 0, '35414d649cec4cba60f6b0ee6e94450b'),
-(44, 'kusaledu@gmail.com', 'kusal.123.vimukthi@gmail.com', 773318779, '35414d649cec4cba60f6b0ee6e94450b'),
-(45, 'kusaledu@gmail.com', 'sdfs', 0, '35414d649cec4cba60f6b0ee6e94450b'),
-(46, 'kusaledu@gmail.com', 'fdsdf', 0, '35414d649cec4cba60f6b0ee6e94450b'),
-(48, 'kay', 'kusalr@gmail.com', 773318779, 'f4dab044ace47389dd40717a65750142'),
-(49, 'k', 'kusa@gmail.com', 773318779, '8ce4b16b22b58894aa86c421e8759df3'),
-(50, 'k', 'kusale@gmail.com', 773318779, '0cc175b9c0f1b6a831c399e269772661'),
-(51, 'k', 'ku@gmail.com', 773318779, 'c4ca4238a0b923820dcc509a6f75849b'),
-(52, 'h', 'kuedu@gmail.com', 773318779, 'c4ca4238a0b923820dcc509a6f75849b'),
-(53, 'k', 'kdu@gmail.com', 773318779, 'c4ca4238a0b923820dcc509a6f75849b'),
-(54, 'k', 'asd@df', 773318779, 'c4ca4238a0b923820dcc509a6f75849b');
+INSERT INTO `users` (`id`, `username`, `email`, `phone`, `password`, `oauth_provider`, `oauth_subject`, `created_at`) VALUES
+(1, 'Demo User', 'demo@example.com', '+94123456789', '$2y$12$M95XItL1zduVu.2XGszeme6lTzXBZWqvDlxh.5i3Wzb65f.G1cqd.', NULL, NULL, '2024-01-01 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -213,7 +205,9 @@ ALTER TABLE `cars`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email_unique` (`email`),
+  ADD UNIQUE KEY `oauth_provider_subject` (`oauth_provider`,`oauth_subject`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -247,7 +241,7 @@ ALTER TABLE `cars`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

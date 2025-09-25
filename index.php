@@ -60,14 +60,14 @@
          <div class="col">
             <div class="showCars">
                <div class="card" style="width: 20rem;">
-                  <img class="img-fluid img-thumbnail" style="" src="admin/img/vehicleimages/<?php echo $row['Vimage1'];?>" alt="Card image cap">
+                  <img class="img-fluid img-thumbnail" style="" src="admin/img/vehicleimages/<?php echo escape($row['Vimage1']); ?>" alt="Card image cap">
                   <div class="card-body">
                      <div class="row">
-                           <div class="col"><h5 class="card-title"><?php echo $row['VehiclesTitle'];?></h5></div>
-                           <div class="col">Price Per Day<h5 class="card-title"><?php echo 'Rs '.$row['PricePerDay'];?></h5></div>
+                           <div class="col"><h5 class="card-title"><?php echo escape($row['VehiclesTitle']); ?></h5></div>
+                           <div class="col">Price Per Day<h5 class="card-title"><?php echo 'Rs ' . escape($row['PricePerDay']); ?></h5></div>
                      </div>
                      <p class="card-text"></p>
-                     <a href="carDetails.php?id=<?php echo $row['id']?>" class="btn btn-primary">Book Now</a>
+                     <a href="carDetails.php?id=<?php echo (int) $row['id']; ?>" class="btn btn-primary">Book Now</a>
                      
                      <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -117,7 +117,7 @@
                            </div>
                         </div>
                      </div>
-                     <a href="carDetails.php?id=<?php echo $row['id']?>" class="btn btn-success">Details</a>
+                     <a href="carDetails.php?id=<?php echo (int) $row['id']; ?>" class="btn btn-success">Details</a>
                   </div>
                </div>
             </div>
